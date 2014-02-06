@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NBA Salary Cap Game </title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='style.css' type='text/css'>
+  </head>
+  <body ng-app='team'>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Angular NBA Salary Cap Game</a>
+        </div>
+      </div>
+    </nav>
+
+    <div ng-controller='CreateTeamCtrl'>
+      <div class="container">
+        <div class='row'>
+          <div class='col-md-6'>
+            <h3> Available Players </h3>
+            <input type='text' ng-model='searchText', placeholder='search'>
+            <table class='table table-striped'>
+              <thead>
+                <tr>
+                  <th>Player Name</th>
+                  <th>Team</th>
+                  <th>Salary</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat='player in players | filter:searchText '>
+                  <td ng-click='addPlayer(player)'><a href="#"> {{player.name}} </a></td>
+                  <td>{{player.team}}</td>
+                  <td>{{player.salary | currency }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class='col-md-6'>
+            <h3>Your Roster</h3><span> (Max Salary: $100M, Max Players: 8)</span>
+            <h4> Team Salary: <span ng-class="{'salary-warning' : exceedsCap()}">{{teamSalary | currency }}</span></h4>
+            <table class='table'>
+              <thead>
+                <tr>
+                  <th>Player Name</th>
+                  <th>Salary</th>
+                </tr>
+                <tbody>
+                  <tr ng-repeat='member in members track by $index'>
+                    <td>{{member.name}}</td>
+                    <td>{{member.salary | currency }}</td>
+                    <td> <a href="#" ng-click='removePlayer($index)'> Remove </a></td>
+                  </tr>
+                </tbody>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+    <script type="text/javascript" src="create_team.js"></script>
+    <script type="text/javascript" src="players.js"></script>
+  </body>
+</html>
+
