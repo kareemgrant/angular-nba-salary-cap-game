@@ -1,3 +1,5 @@
+'use strict';
+
 var league = {};
 
 league.players = [
@@ -79,9 +81,10 @@ league.players = [
   },
 ];
 
-angular.module('team', [])
-  .controller('CreateTeamCtrl', function($scope){
-    $scope.players = league.players;
+angular.module('app', ['players'])
+  .controller('CreateTeamCtrl', function($scope, playerList){
+    $scope.players = playerList.getAllPlayers();
+    console.log($scope.players);
     $scope.members = [];
     $scope.teamSalary = 0;
     var maxSalary = 100000000;
